@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 
 
 
-app.get("/current", function (req, res) {
+app.get("/api/", function (req, res) {
 
   let date = new Date();
   res.json(convertStringToTimestampJson(date.getTime().toString()));
@@ -58,9 +58,9 @@ function convertStringToTimestampJson(dateString = "") {
     let chunks = dateString.split("-")
     let newDate = new Date(chunks[0], chunks[1] - 1, chunks[2])
     let json = {}
-    if (newDate.toString() == "Invalid Date") {
+    if (newDate.toString() == "Invalid Date" || chunks.length != 3) {
       json = {
-        error: newDate.toString()
+        error: "Invalid Date"
       }
     } else {
       json = {
